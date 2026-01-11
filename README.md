@@ -6,6 +6,8 @@
 [![LVGL](https://img.shields.io/badge/LVGL-v9-blue.svg)](https://lvgl.io/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
+> ⚡ **Gerenciamento Automático de Bibliotecas** - Todas as dependências são instaladas via PlatformIO. Veja [MIGRATION.md](MIGRATION.md) se está migrando de versões antigas.
+
 ## Índice
 
 - [Sobre o Projeto](#sobre-o-projeto)
@@ -210,14 +212,29 @@ git clone https://github.com/seu-usuario/TFT_Lora.git
 cd TFT_Lora
 ```
 
-### 3. Configure o Hardware
+### 3. Instale as Dependências
+
+O PlatformIO baixará automaticamente todas as bibliotecas ao compilar:
+
+```bash
+# As bibliotecas serão baixadas automaticamente do platformio.ini
+pio lib install
+```
+
+**Bibliotecas instaladas automaticamente:**
+- `bodmer/TFT_eSPI@^2.5.43` - Driver display ST7789
+- `lvgl/lvgl@^9.4.0` - Framework UI gráfica
+- `h2zero/NimBLE-Arduino@^1.4.0` - Stack Bluetooth LE
+- `rweather/Crypto@^0.4.0` - Criptografia AES
+
+### 4. Configure o Hardware
 
 1. **Conecte o display TFT** conforme o [pinout](#pinout)
 2. **Conecte o módulo LoRa** nas portas UART
 3. **Monte o teclado matricial** com os GPIOs especificados
 4. **(Opcional)** Conecte a bateria com divisor resistivo
 
-### 4. Ajuste a Chave AES (IMPORTANTE!)
+### 5. Ajuste a Chave AES (IMPORTANTE!)
 
 No arquivo `src/main.cpp`, linha ~80, **troque a chave padrão**:
 
@@ -230,7 +247,7 @@ const uint8_t AES_KEY[16] = {
 
  **Use uma chave aleatória em produção!**
 
-### 5. Compile e Upload
+### 6. Compile e Upload
 
 ```bash
 # Via PlatformIO CLI
@@ -239,7 +256,7 @@ pio run --target upload
 # Ou use o botão "Upload" no VS Code (PlatformIO)
 ```
 
-### 6. Monitor Serial (Opcional)
+### 7. Monitor Serial (Opcional)
 
 ```bash
 pio device monitor -b 115200
